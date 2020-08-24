@@ -37,7 +37,7 @@ The VCF file is ready for analysis.
 
 ## Principle Components Analysis
 
-The first analytical technique I use to explore the dataset for population structure is Principle Components Analysis (PCA). I conduct PCA in RStudio using the package SNPRelate. The R code for this analysis is in the R file PCA_script.R.
+The first analytical technique I use to explore the dataset for population structure is Principle Components Analysis (PCA). I conduct PCA in RStudio using the package SNPRelate. The R code for this analysis is in the R file **PCA_script.R**.
 
 
 ## ADMIXTURE Analysis
@@ -74,7 +74,7 @@ done
 
 This loop runs ADMIXTURE using user-defined values for K (representing the number of putative ancestral populations) from 2 to 6. The ```--cv``` option will output the cross validation error for each run into standard output.
 
-Each run produces a two files, a .P file (allele frequencies in the putative ancestral populations) and a .Q file (putative ancestral proportions). The .Q files can be used to produce barplots visualising the putative ancestry components in each population using the R script.
+Each run produces a two files, a .P file (allele frequencies in the putative ancestral populations) and a .Q file (putative ancestral proportions). The .Q files can be used to produce barplots visualising the putative ancestry components in each population using the **ADMIXTURE_script.R** R script.
 
 
 ## Estimation of Pairwise F<sub>ST</sub> Values
@@ -131,4 +131,13 @@ do treemix -i plink.frq.strat.gz -root CHS -bootstrap -k 1000 -m $i -o out_stem$
 done
 ```
 
-These commands produce TreeMix output files that I use to produce plots in R
+These commands produce TreeMix output files that I use to produce plots in R. The script **treemix_analysis.R** contains all the details for how to produce tree and residuals plots.
+
+## F<sub>3</sub> Statistics
+
+I use the ```threepop``` command in the TreeMix software to calculate F<sub>3</sub> statistics for every trio of populations in the study:
+
+```
+>threepop -i plink.frq.gz -k 500
+```
+
