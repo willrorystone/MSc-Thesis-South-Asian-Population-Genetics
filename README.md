@@ -141,3 +141,13 @@ I use the ```threepop``` command in the TreeMix software to calculate F<sub>3</s
 >threepop -i plink.frq.gz -k 500
 ```
 
+This outputs the F<sub>3</sub>, standard errors and Z-scores to standard output.
+
+## D-Statistics
+
+To calculate D-statistics (ABBA-BABA statistics) from VCF input, I use Dsuite. Dsuite requires a text file containing information about each sample ID and their repsective population. The format is tab delimited with one column containing the sample ID and the other containing the population code. CHS individuals are coded as "Outgroup" for Dsuite to treat Han Chinese as the outgroup population. The following code calculates D-statistics for all trios of South Asian populations with CHS as outgroup.
+
+```
+./Build/Dsuite Dtrios all_pops_22_filtered.recode.vcf dsuitemap.txt
+```
+
