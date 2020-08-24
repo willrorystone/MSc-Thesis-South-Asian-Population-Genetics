@@ -73,3 +73,5 @@ done
 ```
 
 This loop runs ADMIXTURE using user-defined values for K (representing the number of putative ancestral populations) from 2 to 6. The ```--cv``` option will output the cross validation error for each run into standard output.
+
+Each run produces a two files, a .P file and a .Q file. The .Q files can be used to produce barplots visualising the ancestry components in each population using the R script 
