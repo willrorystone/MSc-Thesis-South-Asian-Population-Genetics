@@ -47,7 +47,7 @@ I use ADMIXTURE to infer ancestry components in the populations.
 Before running ADMIXTURE software, I convert the VCF file into PLINK format for linkage disequilibrium (LD) pruning:
 
 ```
-vcftools --vcf all_imputed_filtered.recode.vcf --plink --out all_pops_22_filtered
+vcftools --vcf all_pops_22_filtered.recode.vcf --plink --out all_pops_22_filtered
 ```
 
 The following code conducts LD pruning on the PLINK snp file using the ```--indep-pairwise``` option.
@@ -74,4 +74,25 @@ done
 
 This loop runs ADMIXTURE using user-defined values for K (representing the number of putative ancestral populations) from 2 to 6. The ```--cv``` option will output the cross validation error for each run into standard output.
 
-Each run produces a two files, a .P file (allele frequencies in the putative ancestral populations) and a .Q file (putative ancestral proportions). The .Q files can be used to produce barplots visualising the putative ancestry components in each population using the R script 
+Each run produces a two files, a .P file (allele frequencies in the putative ancestral populations) and a .Q file (putative ancestral proportions). The .Q files can be used to produce barplots visualising the putative ancestry components in each population using the R script.
+
+
+## Estimation of Pairwise F<sub>ST</sub> Values
+
+I estimate F<sub>ST</sub> between each pair of South Asian populations using VCFTOOLS.
+
+Firstly, I conduct LD pruning BCFTOOLS. The following code prunes SNPs with LD greater than 0.5: 
+
+```
+bcftools +prune -l 0.5 -w 1000 all_pops_22_vcf.recode.vcf -Ov -o pruned_vcf
+```
+
+I generate text files for each separate South Asian population containing the sample ID numbers of every individual in that population according to 1000Genomes. Pairwise F<sub>ST</sub> values are estimated for every population pair using VCFTOOLS:
+
+```
+vcftools --vcf pruned_vcf --weir-fst-pop populationA.txt --weir-fst-pop populationB.txt --out populationA_populationB_fst
+```
+I use the weighted F<sub>ST</sub> estimate contained within the .log output file.
+
+
+## TreeMix
