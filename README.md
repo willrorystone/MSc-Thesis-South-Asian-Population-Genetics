@@ -96,3 +96,39 @@ I use the weighted F<sub>ST</sub> estimate contained within the .log output file
 
 
 ## TreeMix
+
+I use Treemix to estimate relationships between South Asian populations and infer migration adges as signals of admixture.
+
+Firstly, I prepare the VCF file into TreeMix format using PLINK:
+```
+Users/willstone/Downloads/plink_mac_20200428/plink --vcf all_pops_22_filtered.recode.vcf --make-bed --geno 0.25 --maf 0.01 --snps-only --out input.qual --within clust.txt
+```
+
+This produces .bed, .bim and .fam files using population as the cluster variable. The cluster file **clust.txt** is simply a tab delimited file consisting of three columns: sample ID, population, population (sometimes family is used but i am not using family information).
+
+```
+/Users/willstone/Downloads/plink_mac_20200428/plink --bfile input.qual --freq --missing --within clust.txt
+```
+This produces a stratified frequency file which can be gzipped for use in TreeMix:
+
+```
+gzip plink.frq.strat
+```
+
+To run the TreeMix algorithm and produce the maximum likelihood tree with no migration events:
+
+```
+treemix -i plink.frq.strat.gz -root CHS -bootstrap -k 1000 -o out_stem
+```
+
+The following loop runs TreeMix using user-defined numbers of migration events from 1-6:
+
+```
+for i in {1..6}
+
+do treemix -i plink.frq.strat.gz -root CHS -bootstrap -k 1000 -m $i -o out_stem$i
+
+done
+```
+
+These commands produce TreeMix output files that I use to produce plots in R
