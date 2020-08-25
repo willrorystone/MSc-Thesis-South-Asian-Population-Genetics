@@ -1,5 +1,5 @@
 # Pipeline for admixture analysis of South Asian populations
-This is the pipeline for analysing the population structure and admixture patterns of South Asian populations from my MSc Thesis. 
+This is the pipeline for analysing the population structure and admixture patterns of South Asian populations from my MSc Thesis. All files that I used to carry out these analyses are included in the repository, in the relevant folders.
 
 ## Software required
 I carry out all analyses in MacOS Terminal and Rstudio. Here is a list of software programs I use in chronological order with links for downloads and documentation:
@@ -138,10 +138,10 @@ These commands produce TreeMix output files that I use to produce plots in R. Th
 I use the ```threepop``` command in the TreeMix software to calculate F<sub>3</sub> statistics for every trio of populations in the study:
 
 ```
->threepop -i plink.frq.gz -k 500
+threepop -i plink.frq.gz -k 500
 ```
 
-This outputs the F<sub>3</sub>, standard errors and Z-scores to standard output.
+This outputs the F<sub>3</sub>, standard errors and Z-scores to standard output. 
 
 ## D-Statistics
 
@@ -151,3 +151,4 @@ To calculate D-statistics (ABBA-BABA statistics) from VCF input, I use Dsuite. D
 ./Build/Dsuite Dtrios all_pops_22_filtered.recode.vcf dsuitemap.txt
 ```
 
+This will calculate the D-Statistic for every trio of South Asian populations using CHS as the outgroup. The results are written into the output file.
