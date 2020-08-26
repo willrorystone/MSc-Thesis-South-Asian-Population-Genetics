@@ -6,12 +6,12 @@ rm(list=ls())
 setwd("~/Documents/IMPERIAL_COLLEGE/Research_Prodge/1_results/ADMIXTURE")
 list.files("~/Documents/IMPERIAL_COLLEGE/Research_Prodge/1_results/ADMIXTURE")
 require(dplyr)
-read.csv("CV_table.csv", header=TRUE)
+
 #formatting the plot output for a plot with five panels
 par(mfrow = c(5,1))
 par(mar = c(1.5, 3, 1.5, 3))
 
-#function to label populations in correct part of admixture plot
+#function to label population blocks in of admixture plot
 barNaming <- function(vec) {
   retVec <- vec
   for(k in 2:length(vec)) {
