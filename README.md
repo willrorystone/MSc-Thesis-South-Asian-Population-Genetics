@@ -1,5 +1,5 @@
 # Pipeline for admixture analysis of South Asian populations
-This is the pipeline for I used for analysing the population structure and admixture patterns of South Asian populations in my MSc Thesis. All files that I used to carry out these analyses are included in the repository, in the relevant folders.
+This is the pipeline for I used for analysing the population structure and admixture patterns of South Asian populations in my MSc Thesis. All required .txt files such as ID lists and population maps that I used to carry out these analyses are included in the repository, in the **Files** folders.
 
 ## Software required
 I carried out all analyses in MacOS Terminal and Rstudio. Here is a list of software programs I used in chronological order with links for downloads and documentation:
@@ -23,7 +23,7 @@ First, I generated a text file containing the ID numbers for every individual I 
 I then recoded a new VCF file containing only my selected sample IDs:
 
 ```
-vcftools --gzvcf file.vcf.gz --keep listnames.txt --recode --out new_file_vcf
+vcftools --gzvcf file.vcf.gz --keep all_populations.txt --recode --out all_pops_22_vcf
 ```
 
 I then used site filtering options in VCFTOOLS to filter genotypes with coverage below 50% and SNPs with minor allele count below 3:
@@ -101,13 +101,13 @@ I used Treemix to estimate relationships between South Asian populations and inf
 
 Firstly, I prepared the VCF file into TreeMix format using PLINK:
 ```
-Users/willstone/Downloads/plink_mac_20200428/plink --vcf all_pops_22_filtered.recode.vcf --make-bed --geno 0.25 --maf 0.01 --snps-only --out input.qual --within clust.txt
+plink --vcf all_pops_22_filtered.recode.vcf --make-bed --geno 0.25 --maf 0.01 --snps-only --out input.qual --within clust.txt
 ```
 
 This produced .bed, .bim and .fam files using population as the cluster variable. The cluster file **clust.txt** is simply a tab delimited file consisting of three columns: sample ID, population, population (sometimes family is used but I did not analyse family information).
 
 ```
-/Users/willstone/Downloads/plink_mac_20200428/plink --bfile input.qual --freq --missing --within clust.txt
+plink --bfile input.qual --freq --missing --within clust.txt
 ```
 This produced a stratified frequency file which can be gzipped for use in TreeMix:
 
