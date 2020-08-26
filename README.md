@@ -1,5 +1,5 @@
 # Pipeline for admixture analysis of South Asian populations
-This is the pipeline for I used for analysing the population structure and admixture patterns of South Asian populations in my MSc Thesis. All required .txt files such as ID lists and population maps that I used to carry out these analyses are included in the repository, in the **Files** folders.
+This is the pipeline for I used for analysing the population structure and admixture patterns of South Asian populations in my MSc Thesis. All required .txt files such as ID lists and population maps that I used to carry out these analyses are included in the repository, in the **Files** folder.
 
 ## Software required
 I carried out all analyses in MacOS Terminal and Rstudio. Here is a list of software programs I used in chronological order with links for downloads and documentation:
